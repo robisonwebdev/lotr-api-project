@@ -5,6 +5,7 @@ import '../styles/Main.css';
 
 const Main = () => {
     const [quotes, setQuotes] = useState([]);
+    const [quote, setQuote] = useState('');
 
     useEffect(() => {
         const headers = {
@@ -17,9 +18,19 @@ const Main = () => {
         .catch(err => console.log('Error:', err))
     }, [])
 
+    const generateNewQuote = () => {
+        const randomQuote = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
+        const newQuote = randomQuote.dialog;
+
+        setQuote(newQuote);
+    }
+
     return (
         <main>
-            <Quote />
+            <Quote
+                generateNewQuote={generateNewQuote}
+                quote={quote}
+            />
         </main>
     )
 };
