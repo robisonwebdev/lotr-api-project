@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import axios from 'axios';
 import Quote from './Quote';
 import '../styles/Main.css';
@@ -14,6 +14,19 @@ const Main = () => {
         'Authorization': 'Bearer zOjjtnXi3W7jeEjqZlm8'
     });
 
+    const generateNewQuote = useCallback(
+        () => {
+            const randomQuote = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
+            const newQuote = randomQuote.dialog;
+            const characterID = randomQuote.character;
+
+            console.log(randomQuote);
+            setCharacterID(characterID);
+            setQuote(newQuote);
+        },
+        [quotes.docs],
+    );
+
     // Initial API Load
     useEffect(() => {
         setLoading(true);
@@ -24,14 +37,7 @@ const Main = () => {
             setLoading(false);
         })
         .catch(err => console.log('Error:', err))
-    }, [headers])
-
-    // Initial Page Load
-    useEffect(() => {
-        if (!loading) {
-            generateNewQuote();
-        }
-    }, [loading])
+    }, [headers])    
 
     // Get Character Information
     useEffect(() => {
@@ -40,15 +46,12 @@ const Main = () => {
         .catch(err => console.log('Error:', err))
     }, [characterID, headers])
 
-    const generateNewQuote = () => {
-        const randomQuote = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
-        const newQuote = randomQuote.dialog;
-        const characterID = randomQuote.character;
-
-        console.log(randomQuote);
-        setCharacterID(characterID);
-        setQuote(newQuote);
-    }
+    // Initial Page Load
+    useEffect(() => {
+        if (!loading) {
+            generateNewQuote();
+        }
+    }, [loading, generateNewQuote])
 
     return (
         <main>
