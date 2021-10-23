@@ -36,6 +36,7 @@ const Main = () => {
         setCharater(whoSaidQuote);
     }, [quotesData.docs]);
 
+    // Check for loading change
     useEffect(() => {
         if (!loading) {
             getRandomQuote();
@@ -44,7 +45,7 @@ const Main = () => {
 
     return (
         <main>
-            {loading ? <Quote message='Loading...' /> : <Quote characterName={character} message={quote} />}
+            {loading ? <Quote message='Loading...' /> : <Quote characterName={character} message={quote} newQuote={getRandomQuote} />}
         </main>
     );
 }
