@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Quote = ({ characterName, message }) => {
+const Quote = ({ characterName, message, newQuote }) => {
     return (
         <div className='quote'>
             <h1>{message}</h1>
             <p>--{characterName}--</p>
-            <button type='button'>New Quote</button>
+            <button type='button' onClick={newQuote}>New Quote</button>
         </div>
     )
 }
