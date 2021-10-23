@@ -4,64 +4,114 @@ import Quote from './Quote';
 import '../styles/Main.css';
 
 const Main = () => {
-    const [character, setCharacter] = useState([]);
-    const [characterID, setCharacterID] = useState('');
+    const [charactersData, setCharactersData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [quotes, setQuotes] = useState([]);
-    const [quote, setQuote] = useState('');
-    const [headers] = useState({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer zOjjtnXi3W7jeEjqZlm8'
-    });
+    const [quotesData, setQuotesData] = useState([]);    
 
-    const generateNewQuote = useCallback(
-        () => {
-            const randomQuote = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
-            const newQuote = randomQuote.dialog;
-            const characterID = randomQuote.character;
-
-            console.log(randomQuote);
-            setCharacterID(characterID);
-            setQuote(newQuote);
-        },
-        [quotes.docs],
-    );
-
-    // Initial API Load
     useEffect(() => {
+        const headers = {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer zOjjtnXi3W7jeEjqZlm8'
+        }
+
         setLoading(true);
 
         axios.get(`https://the-one-api.dev/v2/quote`, {headers})
-        .then(res => {
-            setQuotes(res.data);
-            setLoading(false);
-        })
-        .catch(err => console.log('Error:', err))
-    }, [headers])    
+             .then(res => setQuotesData(res.data))
+             .catch(err => console.log(err))
 
-    // Get Character Information
-    useEffect(() => {
-        axios.get(`https://the-one-api.dev/v2/character/${characterID}`, {headers})
-        .then(res => setCharacter(res.data))
-        .catch(err => console.log('Error:', err))
-    }, [characterID, headers])
+        axios.get(`https://the-one-api.dev/v2/character`, {headers})
+             .then(res => {
+                 setCharactersData(res.data);
+                 setLoading(false);
+             })
+             .catch(err => console.log(err))
+    }, [])
 
-    // Initial Page Load
-    useEffect(() => {
+    const testAPI = () => {
         if (!loading) {
-            generateNewQuote();
+            console.log('Quotes', quotesData);
+            console.log('Characters', charactersData);
         }
-    }, [loading, generateNewQuote])
+    }
 
     return (
         <main>
-            <Quote
-                character={character}
-                generateNewQuote={generateNewQuote}
-                quote={quote}
-            />
+            {testAPI()}
+            <Quote />
         </main>
-    )
-};
+    );
+}
+
+// const Main = () => {
+//     const [character, setCharacter] = useState([]);
+//     const [characterID, setCharacterID] = useState('');
+//     const [characterName, setCharacterName] = useState('');
+//     const [loading, setLoading] = useState(true);
+//     const [quotes, setQuotes] = useState([]);
+//     const [quote, setQuote] = useState('');
+//     const [headers] = useState({
+//         'Accept': 'application/json',
+//         'Authorization': 'Bearer zOjjtnXi3W7jeEjqZlm8'
+//     });
+
+//     const generateNewQuote = useCallback(
+//         () => {
+//             const randomQuote = quotes.docs[Math.floor(Math.random() * quotes.docs.length)];
+//             const newQuote = randomQuote.dialog;
+//             const characterID = randomQuote.character;
+
+//             console.log(randomQuote);
+//             setCharacterID(characterID);
+//             setQuote(newQuote);
+//         },
+//         [quotes.docs],
+//     );
+
+//     const getCharacterName = () => {
+//         const name = characterID.docs[0]['name'];
+
+//         setCharacterName(name);
+//     }
+
+//     // Initial API Load
+//     useEffect(() => {
+//         setLoading(true);
+
+//         axios.get(`https://the-one-api.dev/v2/quote`, {headers})
+//         .then(res => {
+//             setQuotes(res.data);
+//             setLoading(false);
+//         })
+//         .catch(err => console.log('Error:', err))
+//     }, [headers])    
+
+//     // Get Character Information
+//     useEffect(() => {
+//         axios.get(`https://the-one-api.dev/v2/character/${characterID}`, {headers})
+//         .then(res => {
+//             setCharacter(res.data);
+//             // getCharacterName();
+//         })
+//         .catch(err => console.log('Error:', err))
+//     }, [characterID, headers])
+
+//     // Initial Page Load
+//     useEffect(() => {
+//         if (!loading) {
+//             generateNewQuote();
+//         }
+//     }, [loading, generateNewQuote])
+
+//     return (
+//         <main>
+//             <Quote
+//                 characterName={characterName}
+//                 generateNewQuote={generateNewQuote}
+//                 quote={quote}
+//             />
+//         </main>
+//     )
+// };
 
 export default Main
