@@ -27,20 +27,20 @@ const Main = () => {
              .catch(err => console.log(err))
     }, []);
 
-    useEffect(() => {
-        if (!loading) {
-            getRandomQuote();
-        }
-    }, [loading])
-
-    const getRandomQuote = () => {
+    const getRandomQuote = useCallback(() => {
         let randomQuoteObject = quotesData.docs[Math.floor(Math.random() * quotesData.docs.length)];
         let randomQuote = randomQuoteObject['dialog'];
         let whoSaidQuote = randomQuoteObject['character'];
 
         setQuote(randomQuote);
         setCharater(whoSaidQuote);
-    }
+    }, [quotesData.docs]);
+
+    useEffect(() => {
+        if (!loading) {
+            getRandomQuote();
+        }
+    }, [loading, getRandomQuote])
 
     return (
         <main>
