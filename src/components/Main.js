@@ -4,6 +4,7 @@ import Quote from './Quote';
 import '../styles/Main.css';
 
 const Main = () => {
+    const [character, setCharater] = useState('');
     const [loading, setLoading] = useState(true);
     const [quote, setQuote] = useState('');
     const [quotesData, setQuotesData] = useState([]);
@@ -33,13 +34,17 @@ const Main = () => {
     }, [loading])
 
     const getRandomQuote = () => {
-        let randomQuote = quotesData.docs[Math.floor(Math.random() * quotesData.docs.length)]['dialog'];
+        let randomQuoteObject = quotesData.docs[Math.floor(Math.random() * quotesData.docs.length)];
+        let randomQuote = randomQuoteObject['dialog'];
+        let whoSaidQuote = randomQuoteObject['character'];
+
         setQuote(randomQuote);
+        setCharater(whoSaidQuote);
     }
 
     return (
         <main>
-            {loading ? <Quote message='Loading...' /> : <Quote message={quote} />}
+            {loading ? <Quote message='Loading...' /> : <Quote characterName={character} message={quote} />}
         </main>
     );
 }
