@@ -47,11 +47,16 @@ const Main = () => {
              .catch(err => console.log(err))
     }, []);
 
-    const getCharacterName = (whoSaidQuote) => {
-        const name = CharacterData.find(character => character['_id'] === whoSaidQuote);
+    // const getCharacterName = (whoSaidQuote) => {
+    //     const name = CharacterData.find(character => character['_id'] === whoSaidQuote);
 
+    //     setCharacter(name.name);
+    // }
+
+    const getCharacterName = useCallback((whoSaidQuote) => {
+        const name = CharacterData.find(character => character['_id'] === whoSaidQuote);
         setCharacter(name.name);
-    }
+    }, [CharacterData]);
 
     const getRandomQuote = useCallback(() => {
         let randomQuoteObject = quotesData.docs[Math.floor(Math.random() * quotesData.docs.length)];
@@ -60,14 +65,14 @@ const Main = () => {
 
         getCharacterName(whoSaidQuote);
         setQuote(randomQuote);
-    }, [quotesData.docs]);
+    }, [quotesData.docs, getCharacterName]);
 
-    // Check for loading quotes change
+    // Check for loading changes
     useEffect(() => {
         if (!loadingQuotes && !loadingCharacter) {
             getRandomQuote();
         }
-    }, [loadingQuotes, loadingCharacter, getRandomQuote])
+    }, [loadingCharacter, loadingQuotes, getRandomQuote])
 
     return (
         <main>
