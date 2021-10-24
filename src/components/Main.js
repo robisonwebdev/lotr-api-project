@@ -4,25 +4,31 @@ import Quote from './Quote';
 import '../styles/Main.css';
 
 const Main = () => {
-    const [character, setCharater] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [character, setCharacter] = useState([]);
+    const [loadingQuotes, setLoadingQuotes] = useState(true);
     const [quote, setQuote] = useState('');
     const [quotesData, setQuotesData] = useState([]);
+    const [ID, setID] = useState('');
 
+    useEffect(() => {
+        console.log('ID:', ID);
+        console.log('TypeOf:', typeof ID);
+    }, [ID])
 
+    // Initial API Load
     useEffect(() => {
         const headers = {
             'Accept': 'application/json',
             'Authorization': 'Bearer zOjjtnXi3W7jeEjqZlm8'
         };
 
-        setLoading(true);
-        console.log('Getting API Data');
+        setLoadingQuotes(true);
+        console.log('Getting Quotes API');
 
         axios.get(`https://the-one-api.dev/v2/quote`, {headers})
              .then(res => {
                 setQuotesData(res.data);
-                setLoading(false);
+                setLoadingQuotes(false);
              })
              .catch(err => console.log(err))
     }, []);
@@ -33,19 +39,20 @@ const Main = () => {
         let whoSaidQuote = randomQuoteObject['character'];
 
         setQuote(randomQuote);
-        setCharater(whoSaidQuote);
+        setID(whoSaidQuote);
     }, [quotesData.docs]);
 
-    // Check for loading change
+    // Check for loading quotes change
     useEffect(() => {
-        if (!loading) {
+        if (!loadingQuotes) {
             getRandomQuote();
         }
-    }, [loading, getRandomQuote])
+    }, [loadingQuotes, getRandomQuote])
+
 
     return (
         <main>
-            {loading ? <Quote message='Loading...' /> : <Quote characterName={character} message={quote} newQuote={getRandomQuote} />}
+            {loadingQuotes ? <Quote message='Loading...' /> : <Quote characterName={character} message={quote} newQuote={getRandomQuote} />}
         </main>
     );
 }
