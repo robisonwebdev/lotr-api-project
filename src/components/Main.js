@@ -6,7 +6,6 @@ import '../styles/Main.css';
 const Main = () => {
     const [character, setCharacter] = useState('');
     const [CharacterData, setCharacterData] = useState([]);
-    const [charID, setCharID] = useState('');
     const [loadingCharacter, setLoadingCharacter] = useState(true);
     const [loadingQuotes, setLoadingQuotes] = useState(true);
     const [quote, setQuote] = useState('');
@@ -42,34 +41,34 @@ const Main = () => {
 
         axios.get(`https://the-one-api.dev/v2/character`, {headers})
              .then(res => {
-                setCharacterData(res.data);
+                setCharacterData(res.data.docs);
                 setLoadingCharacter(false);
              })
              .catch(err => console.log(err))
     }, []);
+
+    const getCharacterName = (whoSaidQuote) => {
+        const name = CharacterData.find(character => character['_id'] === whoSaidQuote);
+
+        setCharacter(name.name);
+    }
 
     const getRandomQuote = useCallback(() => {
         let randomQuoteObject = quotesData.docs[Math.floor(Math.random() * quotesData.docs.length)];
         let randomQuote = randomQuoteObject['dialog'];
         let whoSaidQuote = randomQuoteObject['character'];
 
+        getCharacterName(whoSaidQuote);
         setQuote(randomQuote);
-        setCharID(whoSaidQuote);
     }, [quotesData.docs]);
 
     // Check for loading quotes change
     useEffect(() => {
-        if (!loadingQuotes) {
+        if (!loadingQuotes && !loadingCharacter) {
             console.log('Quotes Data', quotesData);
             getRandomQuote();
         }
-    }, [loadingQuotes, getRandomQuote])
-
-    useEffect(() => {
-        if (!loadingCharacter) {
-            console.log('Character Data:', CharacterData);
-        }
-    }, [loadingCharacter])
+    }, [loadingQuotes, loadingCharacter, getRandomQuote])
 
     return (
         <main>
