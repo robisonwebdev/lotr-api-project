@@ -65,7 +65,6 @@ const Main = () => {
     // Check for loading quotes change
     useEffect(() => {
         if (!loadingQuotes && !loadingCharacter) {
-            console.log('Quotes Data', quotesData);
             getRandomQuote();
         }
     }, [loadingQuotes, loadingCharacter, getRandomQuote])
