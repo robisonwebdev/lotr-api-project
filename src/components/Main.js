@@ -19,7 +19,6 @@ const Main = () => {
         };
 
         setLoadingQuotes(true);
-        console.log('Getting Quotes API');
 
         axios.get(`https://the-one-api.dev/v2/quote`, {headers})
              .then(res => {
@@ -37,7 +36,6 @@ const Main = () => {
         };
 
         setLoadingCharacter(true);
-        console.log('Getting Character API');
 
         axios.get(`https://the-one-api.dev/v2/character`, {headers})
              .then(res => {
@@ -46,12 +44,6 @@ const Main = () => {
              })
              .catch(err => console.log(err))
     }, []);
-
-    // const getCharacterName = (whoSaidQuote) => {
-    //     const name = CharacterData.find(character => character['_id'] === whoSaidQuote);
-
-    //     setCharacter(name.name);
-    // }
 
     const getCharacterName = useCallback((whoSaidQuote) => {
         const name = CharacterData.find(character => character['_id'] === whoSaidQuote);
