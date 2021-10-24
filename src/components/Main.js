@@ -4,18 +4,15 @@ import Quote from './Quote';
 import '../styles/Main.css';
 
 const Main = () => {
-    const [character, setCharacter] = useState([]);
+    const [character, setCharacter] = useState('');
+    const [CharacterData, setCharacterData] = useState([]);
+    const [charID, setCharID] = useState('');
+    const [loadingCharacter, setLoadingCharacter] = useState(true);
     const [loadingQuotes, setLoadingQuotes] = useState(true);
     const [quote, setQuote] = useState('');
     const [quotesData, setQuotesData] = useState([]);
-    const [ID, setID] = useState('');
 
-    useEffect(() => {
-        console.log('ID:', ID);
-        console.log('TypeOf:', typeof ID);
-    }, [ID])
-
-    // Initial API Load
+    // Initial Quotes API Load
     useEffect(() => {
         const headers = {
             'Accept': 'application/json',
@@ -33,22 +30,46 @@ const Main = () => {
              .catch(err => console.log(err))
     }, []);
 
+    // Initial Characters API Load
+    useEffect(() => {
+        const headers = {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer zOjjtnXi3W7jeEjqZlm8'
+        };
+
+        setLoadingCharacter(true);
+        console.log('Getting Character API');
+
+        axios.get(`https://the-one-api.dev/v2/character`, {headers})
+             .then(res => {
+                setCharacterData(res.data);
+                setLoadingCharacter(false);
+             })
+             .catch(err => console.log(err))
+    }, []);
+
     const getRandomQuote = useCallback(() => {
         let randomQuoteObject = quotesData.docs[Math.floor(Math.random() * quotesData.docs.length)];
         let randomQuote = randomQuoteObject['dialog'];
         let whoSaidQuote = randomQuoteObject['character'];
 
         setQuote(randomQuote);
-        setID(whoSaidQuote);
+        setCharID(whoSaidQuote);
     }, [quotesData.docs]);
 
     // Check for loading quotes change
     useEffect(() => {
         if (!loadingQuotes) {
+            console.log('Quotes Data', quotesData);
             getRandomQuote();
         }
     }, [loadingQuotes, getRandomQuote])
 
+    useEffect(() => {
+        if (!loadingCharacter) {
+            console.log('Character Data:', CharacterData);
+        }
+    }, [loadingCharacter])
 
     return (
         <main>
