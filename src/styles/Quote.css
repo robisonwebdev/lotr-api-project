@@ -5,6 +5,11 @@
     justify-content: flex-start;
     gap: 30px;
 
+    color: aliceblue;
     height: 100%;
     width: 75%;
+}
+
+.quote p {
+    align-self: flex-end;
 }
