@@ -11,5 +11,6 @@
 }
 
 .quote p {
+    font-size: 20px;
     align-self: flex-end;
 }
