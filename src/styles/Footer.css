@@ -4,6 +4,13 @@ footer {
     justify-content: center;
     align-items: center;
 
+    color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 5px;
     height: auto;
     width: 100%;
+}
+
+footer a {
+    color: goldenrod;
 }
