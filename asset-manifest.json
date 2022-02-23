@@ -1,22 +1,15 @@
 {
   "files": {
-    "main.css": "/lotr-api-project/static/css/main.62d96ea8.chunk.css",
-    "main.js": "/lotr-api-project/static/js/main.119f7ac3.chunk.js",
-    "main.js.map": "/lotr-api-project/static/js/main.119f7ac3.chunk.js.map",
-    "runtime-main.js": "/lotr-api-project/static/js/runtime-main.c6dd48f0.js",
-    "runtime-main.js.map": "/lotr-api-project/static/js/runtime-main.c6dd48f0.js.map",
-    "static/js/2.9e37ba3e.chunk.js": "/lotr-api-project/static/js/2.9e37ba3e.chunk.js",
-    "static/js/2.9e37ba3e.chunk.js.map": "/lotr-api-project/static/js/2.9e37ba3e.chunk.js.map",
+    "main.css": "/lotr-api-project/static/css/main.35ec6e04.css",
+    "main.js": "/lotr-api-project/static/js/main.3785bbd8.js",
+    "static/media/lotr_background.jpg": "/lotr-api-project/static/media/lotr_background.6edc441d48648d3a3d7e.jpg",
+    "static/media/lotr_logo2.png": "/lotr-api-project/static/media/lotr_logo2.98f2ee138ae9ce909704.png",
     "index.html": "/lotr-api-project/index.html",
-    "static/css/main.62d96ea8.chunk.css.map": "/lotr-api-project/static/css/main.62d96ea8.chunk.css.map",
-    "static/js/2.9e37ba3e.chunk.js.LICENSE.txt": "/lotr-api-project/static/js/2.9e37ba3e.chunk.js.LICENSE.txt",
-    "static/media/Main.css": "/lotr-api-project/static/media/lotr_background.6edc441d.jpg",
-    "static/media/lotr_logo2.98f2ee13.png": "/lotr-api-project/static/media/lotr_logo2.98f2ee13.png"
+    "main.35ec6e04.css.map": "/lotr-api-project/static/css/main.35ec6e04.css.map",
+    "main.3785bbd8.js.map": "/lotr-api-project/static/js/main.3785bbd8.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.c6dd48f0.js",
-    "static/js/2.9e37ba3e.chunk.js",
-    "static/css/main.62d96ea8.chunk.css",
-    "static/js/main.119f7ac3.chunk.js"
+    "static/css/main.35ec6e04.css",
+    "static/js/main.3785bbd8.js"
   ]
 }
