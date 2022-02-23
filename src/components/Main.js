@@ -15,7 +15,7 @@ const Main = () => {
     useEffect(() => {
         const headers = {
             'Accept': 'application/json',
-            'Authorization': 'Bearer zOjjtnXi3W7jeEjqZlm8'
+            'Authorization': 'Bearer GaDn9kGFz7Q4_0Fb63TE'
         };
 
         setLoadingQuotes(true);
@@ -32,7 +32,7 @@ const Main = () => {
     useEffect(() => {
         const headers = {
             'Accept': 'application/json',
-            'Authorization': 'Bearer zOjjtnXi3W7jeEjqZlm8'
+            'Authorization': 'Bearer GaDn9kGFz7Q4_0Fb63TE'
         };
 
         setLoadingCharacter(true);
